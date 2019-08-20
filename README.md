@@ -1,3 +1,7 @@
+[![CircleCI](https://circleci.com/gh/HnH/qry/tree/master.svg?style=svg&circle-token=cd6ef5c602e0f89a80488349a1e4fbe034b8d717)](https://circleci.com/gh/HnH/qry/tree/master)
+[![codecov](https://codecov.io/gh/HnH/qry/branch/master/graph/badge.svg)](https://codecov.io/gh/HnH/qry)
+[![Go Report Card](https://goreportcard.com/badge/github.com/HnH/qry)](https://goreportcard.com/report/github.com/HnH/qry)
+
 # About
 
 **qry** is a general purpose library for storing your raw database queries in .sql files with all benefits of modern IDEs, instead of strings and constants in the code, and using them in an easy way inside your application with all the profit of compile time constants.

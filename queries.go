@@ -10,7 +10,7 @@ type QuerySet map[string]Query
 // Query represents single query from a .sql file
 type Query string
 
-// Replaces part of a query
+// Replace part of a query
 func (q Query) Replace(o, r string) Query {
 	if len(o) == 0 || len(r) == 0 {
 		return q

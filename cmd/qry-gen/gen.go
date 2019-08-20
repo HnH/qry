@@ -113,7 +113,7 @@ func loadSql(cfg config) (b *bytes.Buffer, err error) {
 
 func format(b *bytes.Buffer) (err error) {
 	var (
-		cmd   = exec.Command("gofmt")
+		cmd   = exec.Command("gofmt") // #nosec
 		stdin io.WriteCloser
 	)
 
