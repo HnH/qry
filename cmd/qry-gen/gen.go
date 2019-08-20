@@ -28,33 +28,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	var b *bytes.Buffer
-	if b, err = loadSql(cfg); err != nil {
+	if err = gen(cfg); err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
 		os.Exit(1)
 	}
 
-	// passing trough gofmt
-	if cfg.fmt {
-		if err = format(b); err != nil {
-			fmt.Fprintf(os.Stderr, err.Error())
-			os.Exit(1)
-		}
-	}
-
-	// Output to stdout
-	if len(cfg.pkg) == 0 {
-		fmt.Fprintf(os.Stdout, b.String())
-		os.Exit(0)
-	}
-
-	// Output to file
-	if err = ioutil.WriteFile(fmt.Sprintf("%s/%s", cfg.pkg, cfg.out), b.Bytes(), os.ModePerm); err != nil {
-		fmt.Fprintf(os.Stderr, "Cannot write to output file [%s/%s]\n", cfg.pkg, cfg.out)
-		os.Exit(1)
-	}
-
-	fmt.Fprintf(os.Stdout, "Saved to output file [%s/%s]\n", cfg.pkg, cfg.out)
 	os.Exit(0)
 }
 
@@ -71,6 +49,35 @@ func loadCfg() (cfg config, err error) {
 		}
 	}
 
+	return
+}
+
+func gen(cfg config) (err error) {
+	var b *bytes.Buffer
+	if b, err = loadSql(cfg); err != nil {
+		return
+	}
+
+	// passing trough gofmt
+	if cfg.fmt {
+		if err = format(b); err != nil {
+			return
+		}
+	}
+
+	// Output to stdout
+	if len(cfg.pkg) == 0 {
+		fmt.Fprintf(os.Stdout, b.String())
+		return
+	}
+
+	// Output to file
+	if err = ioutil.WriteFile(fmt.Sprintf("%s/%s", cfg.pkg, cfg.out), b.Bytes(), os.ModePerm); err != nil {
+		err = fmt.Errorf("cannot write to output file [%s/%s]", cfg.pkg, cfg.out)
+		return
+	}
+
+	fmt.Fprintf(os.Stdout, "saved to output file [%s/%s]\n", cfg.pkg, cfg.out)
 	return
 }
 
