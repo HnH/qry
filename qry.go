@@ -1,5 +1,5 @@
 /*
-qry is a general purpose library for storing your raw database queries in .sql files with all benefits of modern IDEs,
+Package qry is a general purpose library for storing your raw database queries in .sql files with all benefits of modern IDEs,
 instead of strings and constants in the code, and using them in an easy way inside your application with all the profit
 of compile time constants.
 
