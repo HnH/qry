@@ -1,6 +1,7 @@
 [![CircleCI](https://circleci.com/gh/HnH/qry/tree/master.svg?style=svg&circle-token=cd6ef5c602e0f89a80488349a1e4fbe034b8d717)](https://circleci.com/gh/HnH/qry/tree/master)
 [![codecov](https://codecov.io/gh/HnH/qry/branch/master/graph/badge.svg)](https://codecov.io/gh/HnH/qry)
 [![Go Report Card](https://goreportcard.com/badge/github.com/HnH/qry)](https://goreportcard.com/report/github.com/HnH/qry)
+[![Godoc Reference](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/HnH/qry)
 
 # About
 

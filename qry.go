@@ -1,3 +1,10 @@
+/*
+qry is a general purpose library for storing your raw database queries in .sql files with all benefits of modern IDEs, instead of strings and constants in the code, and using them in an easy way inside your application with all the profit of compile time constants.
+
+qry recursively loads all .sql files from a specified folder, parses them according to predefined rules and returns a reusable object, which is actually just a `map[string]string` with some sugar. Multiple queries inside a single file are separated with standard SQL comment syntax: `-- qry: QueryName`. A `QueryName` must match `[A-Za-z_]+`.
+
+gen tool is used for automatic generation of constants for all user specified `query_names`.
+*/
 package qry
 
 import (
