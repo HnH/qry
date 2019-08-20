@@ -20,6 +20,7 @@ func TestGen(t *testing.T) {
 
 	cfg.pkg = cfg.dir + "/pkg/"
 	os.RemoveAll(cfg.pkg)
+	defer os.RemoveAll(cfg.pkg)
 
 	if err = os.Mkdir(cfg.pkg, 0750); err != nil {
 		t.Errorf("could not create pkg dir: %s", err.Error())
