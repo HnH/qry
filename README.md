@@ -13,7 +13,7 @@
 
 # Installation
 
-`go get -u github.com/HnH/qry/cmd/qry-gen/...` 
+`go get -u github.com/HnH/qry/cmd/qry-gen` 
 
 # Usage
 

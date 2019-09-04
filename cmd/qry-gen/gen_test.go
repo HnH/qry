@@ -48,3 +48,28 @@ func TestGen(t *testing.T) {
 		}
 	}
 }
+
+func TestFlags(t *testing.T) {
+	os.Args = []string{"cmd", "--dir=/home/directory", "--pkg=/go/pkg", "--out=raw_queries.go", "--fmt=false"}
+	var cfg, err = loadCfg()
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	if cfg.dir != "/home/directory" {
+		t.Errorf("cfg.dir invalid: %s", cfg.dir)
+	}
+
+	if cfg.pkg != "/go/pkg" {
+		t.Errorf("cfg.pkg invalid: %s", cfg.dir)
+	}
+
+	if cfg.out != "raw_queries.go" {
+		t.Errorf("cfg.out invalid: %s", cfg.dir)
+	}
+
+	if cfg.fmt {
+		t.Error("cfg.fmt invalid")
+	}
+}
