@@ -1,6 +1,7 @@
 package qry
 
 import (
+	"bytes"
 	"strings"
 )
 
@@ -17,6 +18,14 @@ func (q Query) Replace(o, r string) Query {
 	}
 
 	return Query(strings.Replace(string(q), o, r, 1))
+}
+
+func normalize(q []byte) Query {
+	q = bytes.TrimSpace(q)
+	q = bytes.Replace(q, []byte("\n"), []byte(" "), -1)
+	q = rgxMultiSpace.ReplaceAll(q, []byte(" "))
+
+	return Query(q)
 }
 
 // In returns string with N sql query placeholders

@@ -41,10 +41,12 @@ func TestGen(t *testing.T) {
 		bytes.Contains(b, []byte("\tInsertUser  = \"INSERT INTO `users` (`name`) VALUES (?);\"")),
 		bytes.Contains(b, []byte("\tGetUserById = \"SELECT * FROM `users` WHERE `user_id` = ?;\"")),
 		bytes.Contains(b, []byte("\t// two.sql")),
-		bytes.Contains(b, []byte("\tDeleteUsersByIds = \"DELETE FROM `users` WHERE `user_id` IN ({ids});\"")),
+		bytes.Contains(b, []byte("\tDeleteUsersByIds   = \"DELETE FROM `users` WHERE `user_id` IN ({ids});\"")),
+		bytes.Contains(b, []byte("\tUglyMultiLineQuery = \"SELECT * FROM `users` WHERE YEAR(`birth_date`) > 2000;\"")),
 	} {
 		if !c {
 			t.Errorf("check at idx %d has not passed", i)
+			t.Logf("%s", b)
 		}
 	}
 }

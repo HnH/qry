@@ -27,8 +27,11 @@ const (
 
 var (
 	rgxSearchQueries = regexp.MustCompile(`(?m)^--\s*qry:\s*([A-Za-z_]+)\s*$`)
+	rgxMultiSpace    = regexp.MustCompile(`\s{2,}`)
 
+	// ErrDirSql is returned in case when directory with .sql files is unavailable
 	ErrDirSql = errors.New("cannot find directory with .sql files")
+	// ErrDirPkg is returned in case when directory with go package is unavailable
 	ErrDirPkg = errors.New("cannot find go package directory")
 )
 
