@@ -35,7 +35,7 @@ var (
 // Dir recursively loads all .sql files from a specified folder
 func Dir(dir string) (queries map[string]QuerySet, err error) {
 	var files []File
-	if files, err = readFiles(dir); err != nil {
+	if files, err = DirOrdered(dir); err != nil {
 		return
 	}
 
@@ -51,13 +51,10 @@ func Dir(dir string) (queries map[string]QuerySet, err error) {
 	return queries, nil
 }
 
-func DirOrdered(dir string) (files []File, err error) {
-	var s os.FileInfo
-	if s, err = os.Stat(dir); err != nil || !s.IsDir() {
-		err = ErrDirSql
-		return
+func DirOrdered(dir string) ([]File, error) {
+	if s, err := os.Stat(dir); err != nil || !s.IsDir() {
+		return nil, ErrDirSql
 	}
 
-	files, err = readFiles(dir)
-	return
+	return readFiles(dir)
 }

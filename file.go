@@ -26,8 +26,8 @@ func readFiles(dir string) (out []File, err error) {
 	)
 
 	err = filepath.Walk(dir, func(path string, finfo os.FileInfo, err error) error {
-		if err != nil || finfo.IsDir() || filepath.Ext(finfo.Name()) != ext {
-			return err
+		if finfo.IsDir() || filepath.Ext(finfo.Name()) != ext {
+			return nil
 		}
 
 		var f *os.File
