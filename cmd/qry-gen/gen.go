@@ -82,8 +82,8 @@ func gen(cfg config) (err error) {
 }
 
 func loadSql(cfg config) (b *bytes.Buffer, err error) {
-	var loaded map[string]qry.QuerySet
-	if loaded, err = qry.Dir(cfg.dir); err != nil {
+	var loaded []qry.File
+	if loaded, err = qry.DirOrdered(cfg.dir); err != nil {
 		err = qry.ErrDirSql
 		return
 	}
@@ -103,11 +103,11 @@ func loadSql(cfg config) (b *bytes.Buffer, err error) {
 
 	b.WriteString("const (\n")
 
-	for f, q := range loaded {
-		b.WriteString(fmt.Sprintf("// %s\n", f))
+	for _, f := range loaded {
+		b.WriteString(fmt.Sprintf("// %s\n", f.Name))
 
-		for k, v := range q {
-			b.WriteString(fmt.Sprintf("\t%s = \"%s\"\n", k, v))
+		for _, i := range f.Items {
+			b.WriteString(fmt.Sprintf("\t%s = \"%s\"\n", i.Name, i.Query))
 		}
 
 		b.WriteString("\n\n")
