@@ -32,7 +32,7 @@ var (
 	ErrDirPkg = errors.New("cannot find go package directory")
 )
 
-// Dir recursively loads all .sql files from a specified folder
+// Dir recursively loads all .sql files from a specified folder and returns them as a hashmap
 func Dir(dir string) (queries map[string]QuerySet, err error) {
 	var files []File
 	if files, err = DirOrdered(dir); err != nil {
@@ -51,6 +51,7 @@ func Dir(dir string) (queries map[string]QuerySet, err error) {
 	return queries, nil
 }
 
+// DirOrdered recursively loads all .sql files from a specified folder and returns them as a slice
 func DirOrdered(dir string) ([]File, error) {
 	if s, err := os.Stat(dir); err != nil || !s.IsDir() {
 		return nil, ErrDirSql
