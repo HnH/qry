@@ -10,15 +10,17 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"unicode"
 
 	"github.com/HnH/qry"
 )
 
 type config struct {
-	dir string
-	pkg string
-	out string
-	fmt bool
+	dir     string
+	pkg     string
+	out     string
+	fmt     bool
+	comment bool
 }
 
 func main() {
@@ -41,6 +43,7 @@ func loadCfg() (cfg config, err error) {
 	flag.StringVar(&cfg.pkg, "pkg", "", "go package directory")
 	flag.StringVar(&cfg.out, "out", "qry.go", "output filename")
 	flag.BoolVar(&cfg.fmt, "fmt", true, "pass output trough gofmt")
+	flag.BoolVar(&cfg.comment, "comment", true, "generate description comment")
 	flag.Parse()
 
 	if len(cfg.dir) == 0 {
@@ -106,7 +109,13 @@ func loadSql(cfg config) (b *bytes.Buffer, err error) {
 	for _, f := range loaded {
 		b.WriteString(fmt.Sprintf("// %s\n", f.Name))
 
-		for _, i := range f.Items {
+		for idx, i := range f.Items {
+			if cfg.comment && unicode.IsUpper([]rune(i.Name)[0]) {
+				if idx == 0 { // add empty line between f.Name and first comment
+					b.WriteString("\n")
+				}
+				b.WriteString(fmt.Sprintf("\t// %s query \n", i.Name))
+			}
 			b.WriteString(fmt.Sprintf("\t%s = \"%s\"\n", i.Name, i.Query))
 		}
 
