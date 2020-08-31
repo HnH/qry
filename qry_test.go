@@ -14,7 +14,7 @@ func TestDir(t *testing.T) {
 		t.Error(err)
 	}
 
-	if len(q) != 2 {
+	if len(q) != 3 {
 		t.Error("Expected 2 files")
 	}
 
@@ -36,6 +36,14 @@ func TestDir(t *testing.T) {
 
 	if q["two.sql"]["DeleteUsersByIds"] != "DELETE FROM `users` WHERE `user_id` IN ({ids});" {
 		t.Error("Invalid DeleteUsersByIds query")
+	}
+
+	if _, ok := q["three.sql"]; !ok {
+		t.Error("three.sql not loaded")
+	}
+
+	if q["three.sql"]["EscapedJSONQuery"] != "INSERT INTO \\\"data\\\" (id, \\\"data\\\") VALUES (1, '{\\\"test\\\": 1}'), (2, '{\\\"test\\\": 2}');" {
+		t.Error("Invalid EscapedJSONQuery query")
 	}
 }
 
