@@ -48,6 +48,10 @@ func TestGen(t *testing.T) {
 		bytes.Contains(b, []byte("\tDeleteUsersByIds = \"DELETE FROM `users` WHERE `user_id` IN ({ids});\"")),
 		bytes.Contains(b, []byte("\t// UglyMultiLineQuery query")),
 		bytes.Contains(b, []byte("\tUglyMultiLineQuery = \"SELECT * FROM `users` WHERE YEAR(`birth_date`) > 2000;\"")),
+		bytes.Contains(b, []byte("\t// EscapedJSONQuery query")),
+		bytes.Contains(b, []byte("\tEscapedJSONQuery = \"INSERT INTO \\\"data\\\" (id, \\\"data\\\") VALUES (1, '{\\\"test\\\": 1}'), (2, '{\\\"test\\\": 2}');\"")),
+		bytes.Contains(b, []byte("\t// EscapedByteaQuery query")),
+		bytes.Contains(b, []byte("\tEscapedByteaQuery = \"INSERT INTO bin (id, \\\"data\\\") VALUES (1, E'\\\\\\\\x3aaab6e7fb7245cc9785653a0d9ffc4a5ce0f974');\"")),
 	} {
 		if !c {
 			t.Errorf("check at idx %d has not passed", i)
