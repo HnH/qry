@@ -24,6 +24,7 @@ func normalize(q []byte) Query {
 	q = bytes.TrimSpace(q)
 	q = bytes.Replace(q, []byte("\n"), []byte(" "), -1)
 	q = rgxMultiSpace.ReplaceAll(q, []byte(" "))
+	q = bytes.Replace(q, []byte("\\"), []byte("\\\\"), -1)
 	q = bytes.Replace(q, []byte("\""), []byte("\\\""), -1)
 
 	return Query(q)

@@ -45,6 +45,10 @@ func TestDir(t *testing.T) {
 	if q["three.sql"]["EscapedJSONQuery"] != "INSERT INTO \\\"data\\\" (id, \\\"data\\\") VALUES (1, '{\\\"test\\\": 1}'), (2, '{\\\"test\\\": 2}');" {
 		t.Error("Invalid EscapedJSONQuery query")
 	}
+
+	if q["three.sql"]["EscapedByteaQuery"] != "INSERT INTO bin (id, \\\"data\\\") VALUES (1, E'\\\\\\\\x3aaab6e7fb7245cc9785653a0d9ffc4a5ce0f974');" {
+		t.Error("Invalid EscapedByteaQuery query")
+	}
 }
 
 func TestDirInvalid(t *testing.T) {
