@@ -110,7 +110,7 @@ func loadSql(cfg config) (b *bytes.Buffer, err error) {
 		b.WriteString(fmt.Sprintf("// %s\n", f.Name))
 
 		for idx, i := range f.Items {
-			if cfg.comment && unicode.IsUpper([]rune(i.Name)[0]) {
+			if cfg.comment && unicode.IsUpper(rune(i.Name[0])) {
 				if idx == 0 { // add empty line between f.Name and first comment
 					b.WriteString("\n")
 				}

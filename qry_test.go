@@ -15,7 +15,7 @@ func TestDir(t *testing.T) {
 	}
 
 	if len(q) != 3 {
-		t.Error("Expected 2 files")
+		t.Error("Expected 3 files")
 	}
 
 	if _, ok := q["one.sql"]; !ok {
