@@ -10,9 +10,10 @@ import (
 func TestGen(t *testing.T) {
 	var (
 		cfg = config{
-			dir: "../../testdata",
-			out: "gen.go",
-			fmt: true,
+			dir:     "../../testdata",
+			out:     "gen.go",
+			fmt:     true,
+			comment: true,
 		}
 
 		err error
@@ -37,12 +38,20 @@ func TestGen(t *testing.T) {
 
 	for i, c := range []bool{
 		bytes.Contains(b, []byte("package pkg")),
-		bytes.Contains(b, []byte("\t// one.sql")),
-		bytes.Contains(b, []byte("\tInsertUser  = \"INSERT INTO `users` (`name`) VALUES (?);\"")),
+		bytes.Contains(b, []byte("\t// one.sql\n\n")),
+		bytes.Contains(b, []byte("\t// InsertUser query")),
+		bytes.Contains(b, []byte("\tInsertUser = \"INSERT INTO `users` (`name`) VALUES (?);\"")),
+		bytes.Contains(b, []byte("\t// GetUserById query")),
 		bytes.Contains(b, []byte("\tGetUserById = \"SELECT * FROM `users` WHERE `user_id` = ?;\"")),
-		bytes.Contains(b, []byte("\t// two.sql")),
-		bytes.Contains(b, []byte("\tDeleteUsersByIds   = \"DELETE FROM `users` WHERE `user_id` IN ({ids});\"")),
+		bytes.Contains(b, []byte("\t// two.sql\n\n")),
+		bytes.Contains(b, []byte("\t// DeleteUsersByIds query")),
+		bytes.Contains(b, []byte("\tDeleteUsersByIds = \"DELETE FROM `users` WHERE `user_id` IN ({ids});\"")),
+		bytes.Contains(b, []byte("\t// UglyMultiLineQuery query")),
 		bytes.Contains(b, []byte("\tUglyMultiLineQuery = \"SELECT * FROM `users` WHERE YEAR(`birth_date`) > 2000;\"")),
+		bytes.Contains(b, []byte("\t// EscapedJSONQuery query")),
+		bytes.Contains(b, []byte("\tEscapedJSONQuery = \"INSERT INTO \\\"data\\\" (id, \\\"data\\\") VALUES (1, '{\\\"test\\\": 1}'), (2, '{\\\"test\\\": 2}');\"")),
+		bytes.Contains(b, []byte("\t// EscapedByteaQuery query")),
+		bytes.Contains(b, []byte("\tEscapedByteaQuery = \"INSERT INTO bin (id, \\\"data\\\") VALUES (1, E'\\\\\\\\x3aaab6e7fb7245cc9785653a0d9ffc4a5ce0f974');\"")),
 	} {
 		if !c {
 			t.Errorf("check at idx %d has not passed", i)
