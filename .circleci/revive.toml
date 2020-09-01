@@ -29,7 +29,7 @@ warningCode = 0
 [rule.unreachable-code]
 [rule.redefines-builtin-id]
 [rule.cyclomatic]
-  arguments =[8]
+  arguments =[10]
 [rule.line-length-limit]
   arguments =[140]
 [rule.argument-limit]

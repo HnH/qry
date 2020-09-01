@@ -36,6 +36,7 @@ func TestGen(t *testing.T) {
 		t.Errorf("unexpected error: %s", err.Error())
 	}
 
+	//revive:disable:line-length-limit
 	for i, c := range []bool{
 		bytes.Contains(b, []byte("package pkg")),
 		bytes.Contains(b, []byte("\t// one.sql\n\n")),
@@ -58,6 +59,7 @@ func TestGen(t *testing.T) {
 			t.Logf("%s", b)
 		}
 	}
+	//revive:enable:line-length-limit
 }
 
 func TestFlags(t *testing.T) {
