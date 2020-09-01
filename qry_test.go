@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+//revive:disable
 func TestDir(t *testing.T) {
 	var (
 		q   map[string]QuerySet
@@ -50,6 +51,8 @@ func TestDir(t *testing.T) {
 		t.Error("Invalid EscapedByteaQuery query")
 	}
 }
+
+//revive:enable
 
 func TestDirInvalid(t *testing.T) {
 	var _, err = Dir("11")
