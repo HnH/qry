@@ -25,6 +25,7 @@ const (
 var (
 	rgxSearchQueries = regexp.MustCompile(`(?m)^--\s*qry:\s*([A-Za-z_]+)\s*$`)
 	rgxMultiSpace    = regexp.MustCompile(`\s{2,}`)
+	rgxLineComment   = regexp.MustCompile(`--[^\n]*`)
 
 	// ErrDirSql is returned in case when directory with .sql files is unavailable
 	ErrDirSql = errors.New("cannot find directory with .sql files")
