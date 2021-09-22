@@ -145,7 +145,7 @@ func format(b *bytes.Buffer) (err error) {
 
 	var out []byte
 	if out, err = cmd.CombinedOutput(); err != nil {
-		err = errors.New("cannot acquire gofmt stdout")
+		err = fmt.Errorf("cannot acquire gofmt stdout: %s", err.Error())
 		return
 	}
 
