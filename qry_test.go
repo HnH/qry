@@ -15,7 +15,7 @@ func TestDir(t *testing.T) {
 		t.Error(err)
 	}
 
-	if len(q) != 3 {
+	if len(q) != 4 {
 		t.Error("Expected 3 files")
 	}
 
@@ -49,6 +49,10 @@ func TestDir(t *testing.T) {
 
 	if q["three.sql"]["EscapedByteaQuery"] != "INSERT INTO bin (id, \\\"data\\\") VALUES (1, E'\\\\\\\\x3aaab6e7fb7245cc9785653a0d9ffc4a5ce0f974');" {
 		t.Error("Invalid EscapedByteaQuery query")
+	}
+
+	if q["four.sql"]["QueryWithComments"] != "SELECT name, email FROM users INNER JOIN user_details ON users.id = user_details.user_id WHERE users.id = $1;" {
+		t.Error("Invalid QueryWithComments query", q["four.sql"]["QueryWithComments"])
 	}
 }
 

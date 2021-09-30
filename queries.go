@@ -20,8 +20,26 @@ func (q Query) Replace(o, r string) Query {
 	return Query(strings.Replace(string(q), o, r, 1))
 }
 
+func removeMultilineComments(q []byte) []byte {
+	for {
+		index := bytes.IndexAny(q, "/*")
+		if index == -1 {
+			return q
+		}
+
+		closeIndex := bytes.Index(q, []byte("*/"))
+		if closeIndex == -1 {
+			return q
+		}
+
+		q = append(q[:index], q[closeIndex+2:]...)
+	}
+}
+
 func normalize(q []byte) Query {
 	q = bytes.TrimSpace(q)
+	q = removeMultilineComments(q)
+	q = rgxLineComment.ReplaceAll(q, []byte(" "))
 	q = bytes.Replace(q, []byte("\n"), []byte(" "), -1)
 	q = rgxMultiSpace.ReplaceAll(q, []byte(" "))
 	q = bytes.Replace(q, []byte("\\"), []byte("\\\\"), -1)
