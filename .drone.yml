@@ -1,0 +1,20 @@
+kind: pipeline
+type: docker
+name: ci
+
+environment:
+  GOOS: linux
+  GOARCH: amd64
+  CGO_ENABLED: 0
+
+steps:
+  - name: build-linux-amd64
+    image: golang:1.22-alpine
+    commands:
+      - make test
+      - go get -u go install github.com/mgechev/revive@latest && go install github.com/securego/gosec/v2/cmd/gosec@latest
+      - make lint
+
+  - codecov:
+    image: robertstettner/drone-codecov
+    token: ${CODECOV_TOKEN}

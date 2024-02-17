@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - run: make test
-      - run: go get -u github.com/mgechev/revive && go get -u github.com/securego/gosec/v2/cmd/gosec
+      - run: go get -u go install github.com/mgechev/revive@latest && go install github.com/securego/gosec/v2/cmd/gosec@latest
       - run: make lint
       - store_artifacts:
           path: coverage.out

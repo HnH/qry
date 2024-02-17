@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"io/ioutil"
 	"os"
 	"testing"
 )
@@ -31,7 +30,7 @@ func TestGen(t *testing.T) {
 		t.Errorf("unexpected error: %s", err.Error())
 	}
 
-	b, err := ioutil.ReadFile(cfg.pkg + cfg.out)
+	b, err := os.ReadFile(cfg.pkg + cfg.out)
 	if err != nil {
 		t.Errorf("unexpected error: %s", err.Error())
 	}
