@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/HnH/qry/tree/master.svg?style=svg&circle-token=cd6ef5c602e0f89a80488349a1e4fbe034b8d717)](https://circleci.com/gh/HnH/qry/tree/master)
+[![buddy pipeline](https://eu.buddy.works/treinis/qry/pipelines/pipeline/191916/badge.svg?token=b46003623254cc1f4e162f3911b6075d87b9121676c88ffebfbe34d562d75d96 "buddy pipeline")](https://eu.buddy.works/treinis/qry/pipelines/pipeline/191916)
 [![codecov](https://codecov.io/gh/HnH/qry/branch/master/graph/badge.svg)](https://codecov.io/gh/HnH/qry)
 [![Go Report Card](https://goreportcard.com/badge/github.com/HnH/qry)](https://goreportcard.com/report/github.com/HnH/qry)
 [![Godoc Reference](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/HnH/qry)
