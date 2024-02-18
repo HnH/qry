@@ -1,3 +1,4 @@
+// main
 package main
 
 import (
@@ -6,7 +7,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -61,7 +61,7 @@ func gen(cfg config) (err error) {
 		return
 	}
 
-	// passing trough gofmt
+	// passing through gofmt
 	if cfg.fmt {
 		if err = format(b); err != nil {
 			return
@@ -75,7 +75,7 @@ func gen(cfg config) (err error) {
 	}
 
 	// Output to file
-	if err = ioutil.WriteFile(fmt.Sprintf("%s/%s", cfg.pkg, cfg.out), b.Bytes(), os.ModePerm); err != nil {
+	if err = os.WriteFile(fmt.Sprintf("%s/%s", cfg.pkg, cfg.out), b.Bytes(), os.ModePerm); err != nil {
 		err = fmt.Errorf("cannot write to output file [%s/%s]", cfg.pkg, cfg.out)
 		return
 	}
@@ -101,7 +101,7 @@ func loadSql(cfg config) (b *bytes.Buffer, err error) {
 			return
 		}
 
-		b.WriteString(fmt.Sprintf("package %s\n\n ^// Code generated .* DO NOT EDIT.$ \n\n", filepath.Base(cfg.pkg)))
+		b.WriteString(fmt.Sprintf("package %s\n\n// Code generated .* DO NOT EDIT.\n\n", filepath.Base(cfg.pkg)))
 	}
 
 	b.WriteString("const (\n")
