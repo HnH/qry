@@ -1,0 +1,18 @@
+- pipeline: "test and lint"
+  events:
+    - type: "PUSH"
+      refs:
+        - "refs/*"
+  fail_on_prepare_env_warning: true
+  actions:
+    - action: "test and lint"
+      type: "BUILD"
+      docker_image_name: "library/golang"
+      docker_image_tag: "1.19.0"
+      execute_commands:
+        - "make test"
+        - "go install github.com/mgechev/revive@latest && go install github.com/securego/gosec/v2/cmd/gosec@latest"
+        - "make lint"
+      volume_mappings:
+        - "/:/src/github.com/HnH/qry"
+      shell: "BASH"
