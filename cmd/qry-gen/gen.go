@@ -101,7 +101,7 @@ func loadSql(cfg config) (b *bytes.Buffer, err error) {
 			return
 		}
 
-		b.WriteString(fmt.Sprintf("package %s\n\n // Code generated .* DO NOT EDIT.$ \n\n", filepath.Base(cfg.pkg)))
+		b.WriteString(fmt.Sprintf("package %s\n\n// Code generated .* DO NOT EDIT.\n\n", filepath.Base(cfg.pkg)))
 	}
 
 	b.WriteString("const (\n")
