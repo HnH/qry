@@ -12,12 +12,12 @@ type QuerySet map[string]Query
 type Query string
 
 // Replace part of a query
-func (q Query) Replace(o, r string) Query {
+func (q Query) Replace(o, r string) string {
 	if len(o) == 0 || len(r) == 0 {
-		return q
+		return string(q)
 	}
 
-	return Query(strings.Replace(string(q), o, r, 1))
+	return strings.Replace(string(q), o, r, 1)
 }
 
 func removeMultilineComments(q []byte) []byte {

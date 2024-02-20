@@ -5,7 +5,7 @@ import (
 )
 
 func TestQuery(t *testing.T) {
-	var expected = Query("DELETE FROM `users` WHERE `user_id` IN (?,?,?);")
+	var expected = "DELETE FROM `users` WHERE `user_id` IN (?,?,?);"
 	if Query("DELETE FROM `users` WHERE `user_id` IN ({ids});").Replace("{ids}", In(3)) != expected {
 		t.Error("Invalid qry.In() result")
 	}
@@ -13,7 +13,7 @@ func TestQuery(t *testing.T) {
 
 func TestReplaceEmpty(t *testing.T) {
 	var expected = Query("DELETE FROM `users` WHERE `user_id` IN ({ids});")
-	if expected.Replace("", "") != expected {
+	if expected.Replace("", "") != string(expected) {
 		t.Error("Expected empty qry.Replace() result")
 	}
 }
